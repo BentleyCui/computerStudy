@@ -1,11 +1,10 @@
-# computerOS
 ## 一 操作系统结构
 
 **内核**
 
 ​	**让内核作为应用连接硬件设备的桥梁**，应用程序只需关心与内核交互，不用关心硬件的细节。
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\Kernel_Layout.png" style="zoom: 33%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168106430-82fe3813-4947-4120-ba97-5a0d99954e64.png" alt="image" style="zoom: 80%;" />
 
 
 
@@ -21,8 +20,8 @@
 
 大多数操作系统， 把内存分成了两个区域：
 
-	* 内核空间：只有内核程序可以访问
-	* 用户空间：专门给应用程序使用
+* 内核空间：只有内核程序可以访问
+* 用户空间：专门给应用程序使用
 
 用户空间的代码只能访问一个局部的内存空间，而内核空间的代码可以访问所有内存空间。因此，当程序使用用户空间时，我们常说该程序在**用户态**执行，而当程序使内核空间时，程序则在**内核态**执行。
 
@@ -36,7 +35,7 @@
 
 4. Monolithic Kernel，宏内核：Linux系统架构
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\Elf.png" style="zoom: 25%;" />
+![image](https://user-images.githubusercontent.com/59153788/168106665-b076f12c-6eb6-4717-a5de-75ab63a509a9.png)
 
 我们编写的代码，首先通过「编译器」编译成汇编代码，接着通过「汇编器」变成目标代码，也就是目标文件，最后通过「链接器」把多个目标文件以及调用的各种函数库链接起来，形成一个可执行文件，也就是 ELF 文件。
 
@@ -50,7 +49,9 @@ Linux的内核设计是采用宏内核，Windows的内核设计是采用的混�
 
 ## 二 内存管理
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\2-提纲.jpg" style="zoom:33%;" />
+![image](https://user-images.githubusercontent.com/59153788/168106808-e0025619-c386-4c5d-bb2d-01cc42c6d9af.png)
+
+
 
 ### 虚拟内存
 
@@ -68,7 +69,7 @@ Linux的内核设计是采用宏内核，Windows的内核设计是采用的混�
 
 ### 内存分段
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\6-分段寻址.jpg" style="zoom: 40%;" />
+![image](https://user-images.githubusercontent.com/59153788/168106902-7cbb8c1b-3974-4e33-93e7-163b83dcfbe9.png)
 
 物理地址 = 段基址 + 段内偏移量
 
@@ -94,7 +95,7 @@ Linux的内核设计是采用宏内核，Windows的内核设计是采用的混�
 
 为了解决内存分段时 内存碎片和 内存交换效率低的问题
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\9-分页.jpg" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168107015-bb0419c1-080e-45be-bf5e-a6328a4d9f4b.png" alt="image" style="zoom:80%;" />
 
 
 
@@ -110,7 +111,7 @@ Linux的内核设计是采用宏内核，Windows的内核设计是采用的混�
 
 分页的方式使得我们不需要一次性把程序全部加载到物理内存中
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\11-分页寻址.jpg" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168107229-ac010a11-6ead-4900-99c9-55396e538037.png" alt="image" style="zoom:80%;" />
 
 每个进程都有自己的页表，占用很大内存
 
@@ -130,7 +131,7 @@ Linux的内核设计是采用宏内核，Windows的内核设计是采用的混�
 
 
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\22-进程空间结构.jpg" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168107463-45e6d515-5fb4-45ba-aaff-f20a5d50f363.png" alt="image" style="zoom:80%;" />
 
 
 
@@ -156,13 +157,13 @@ malloc（）库函数，用于动态分配内存。有两种方式向操作系�
 
 方法一通过brk（）函数将**堆顶**指针向高地址移动，获得新的内存空间
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\figure\brk.png" style="zoom:50%;" />
+![image](https://user-images.githubusercontent.com/59153788/168107560-650d0768-e145-477a-81a0-aea840777832.png)
 
 
 
 方法二 mmap（）系统调用**「私有匿名映射」**的方式，在文件映射区分配一块内存，也就是从文件映射区“偷”了一块内存
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\figure\mmap.png" style="zoom:50%;" />
+![image](https://user-images.githubusercontent.com/59153788/168107640-eeaab099-45dd-4a95-89ef-532bd8cf5bee.png)
 
 malloc() 源码里默认定义了一个阈值：
 
@@ -184,7 +185,7 @@ malloc() 在分配内存的时候，并不是老老实实按用户预期申请�
 
 ### 1. 进程、线程基础知识
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\3-提纲.jpg" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168107754-7fc78f19-857a-43c1-924e-d58cbd01dd7b.png" alt="image" style="zoom: 67%;" />
 
 **并发与并行的区别**
 
@@ -244,10 +245,10 @@ PCB是以**链表**的方式进行组织的，相同状态的进程链在一起�
 
    开销小体现在：
 
-    	1. 线程的创建时间比进程快
-    	2. 线程的终止时间比进程快，因为线程释放的资源相比进程少很多；
-    	3. 同一个进程内的线程切换比进程切换快，因为线程具有相同的地址空间
-    	4. 由于同一进程的各线程间共享内存和文件资源，那么在线程之间数据传递的时候，就不需要经过内核了，这就使得线程之间的数据交互效率更高了；
+   	1. 线程的创建时间比进程快
+   	2. 线程的终止时间比进程快，因为线程释放的资源相比进程少很多；
+   	3. 同一个进程内的线程切换比进程切换快，因为线程具有相同的地址空间
+   	4. 由于同一进程的各线程间共享内存和文件资源，那么在线程之间数据传递的时候，就不需要经过内核了，这就使得线程之间的数据交互效率更高了；
 
 
 
@@ -290,7 +291,7 @@ PCB是以**链表**的方式进行组织的，相同状态的进程链在一起�
 
 每个进程的用户空间都是独立的，一般而言是不能相互访问的，但是内核空间是每个进程都共享的，所以进程间要通信必须通过内核
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\4-进程空间.jpg" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/59153788/168108139-a09f4fac-0e5a-4bf0-ab60-4ca8544d2aee.png" alt="image" style="zoom:80%;" />
 
 
 
@@ -448,7 +449,7 @@ void unlock(lock_t *lock){
 
 **生产者-消费者问题**
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\20-生产者消费者.jpg" style="zoom:67%;" />
+![image](https://user-images.githubusercontent.com/59153788/168108246-bb6420c6-4600-4a14-a170-20189f55eabe.png)
 
 任意时刻只能有一个线程操作缓冲区，**互斥**
 
@@ -516,7 +517,7 @@ void consumer(){
 
 ### 5.悲观锁、乐观锁
 
-<img src="E:\OneDrive文件\OneDrive\校招\阅读笔记\操作系统\锁之提供.png" style="zoom: 33%;" />
+![image](https://user-images.githubusercontent.com/59153788/168108392-d5bf513e-4296-40d4-8db0-bd5d2b0ed277.png)
 
 为了选择合适的锁，我们不仅需要清楚知道加锁的成本开销有多大，还需要分析业务场景中访问的共享资源的方式，再来还要考虑并发访问共享资源时的冲突概率。
 
